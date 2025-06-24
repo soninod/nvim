@@ -18,8 +18,6 @@ return {
     "EdenEast/nightfox.nvim",
     config = function()
       vim.cmd("colorscheme terafox")
-      -- vim.api.nvim_set_hl(0, "LineNr", { bold = false })
-      -- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ff875f", bold = true })
     end,
   }, -- lazy
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
@@ -54,8 +52,8 @@ return {
           icons = {
             glyphs = {
               folder = {
-                arrow_closed = "⯈", -- e.g., thin arrow
-                arrow_open = "⯆",
+                arrow_closed = "⮞", -- e.g., thin arrow
+                arrow_open = "⮟",
               },
             },
             show = {
@@ -63,7 +61,6 @@ return {
               folder = true,
               folder_arrow = true,
               git = true,
-
             },
           },
         },
@@ -76,6 +73,7 @@ return {
         --   timeout = 500,
         -- },
       })
+
     end
   }
 }
