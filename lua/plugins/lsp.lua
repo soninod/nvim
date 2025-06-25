@@ -17,40 +17,6 @@ return {
 
         end,
       }
-
-      local home = os.getenv("HOME")
-
-      lspconfig.dartls.setup{
-        cmd = {
-          home .. "/development/flutter/bin/cache/dart-sdk/bin/dart",
-          home .. "/development/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
-          "--lsp"
-        },
-        filetypes = { "dart" },
-        root_markers = { 'pubspec.yaml' },
-        init_options = {
-          closingLabels = true,
-          flutterOutline = true,
-          onlyAnalyzeProjectsWithOpenFiles = true,
-          outline = true,
-          suggestFromUnimportedLibraries = true
-        },
-        settings = {
-          dart = {
-            completeFunctionCalls = true,
-            showTodos = true
-          }
-        },
-        on_attach = function(client, bufnr)
-
-          local opts = { noremap=true, silent=true }
-          local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-          buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-          buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
-        end,
-      }
     end,
   },
   -- flutter lsp config
@@ -75,7 +41,7 @@ return {
           -- This determines whether notifications are show with `vim.notify` or with the plugin's custom UI
           -- please note that this option is eventually going to be deprecated and users will need to
           -- depend on plugins like `nvim-notify` instead.
-          notification_style = 'native' | 'plugin'
+          notification_style = 'native'
         },
         decorations = {
           statusline = {
@@ -117,6 +83,18 @@ return {
         widget_guides = {
           enabled = false,
         },
+
+        lsp = {
+          on_attach = function(client, bufnr)
+
+            local opts = { noremap=true, silent=true }
+            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
+            buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+            buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+          end
+        }
       }
     end
 
