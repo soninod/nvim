@@ -4,21 +4,33 @@ return {
   -- LSP configurations
   { "neovim/nvim-lspconfig",
     config = function()
-      local lspconfig = require("lspconfig")
+      -- capabilities (nvim-cmp эсвэл бусад plugin-тэй хамт)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-      lspconfig.ts_ls.setup{
-        on_attach = function(client, bufnr)
+      -- on_attach функцээ нэг удаа тодорхойлно
+      local on_attach = function(client, bufnr)
+        local opts = { noremap = true, silent = true }
+        local function map(mode, lhs, rhs)
+          vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+        end
 
-          local opts = { noremap=true, silent=true }
-          local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+        map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+        map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+      end
 
-          buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-          buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+      -- сервер бүрт нийтлэг тохиргоо
+      local servers = { "ts_ls", "pyright" }
 
-        end,
-      }
+      for _, server in ipairs(servers) do
+        vim.lsp.config(server, {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        })
+      end
+
     end,
   },
+
   -- flutter lsp config
   {
    'nvim-flutter/flutter-tools.nvim',
