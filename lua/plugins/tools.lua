@@ -6,5 +6,6 @@ return {
       require("telescope").setup({})
     end,
   },
+  -- {'github/copilot.vim'}
 }
 
