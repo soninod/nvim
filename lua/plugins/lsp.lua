@@ -12,13 +12,16 @@ return {
   },
   -- LuaSnip snippets collection (optional)
   { "rafamadriz/friendly-snippets" },
-  -- Flutter & Dart
-  { "akinsho/flutter-tools.nvim",
+
+    -- Flutter & Dart
+  {
+    "akinsho/flutter-tools.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
       "nvim-lua/plenary.nvim",
     },
   },
+
   -- LSP configuration (v0.11+ аргаар)
   { "neovim/nvim-lspconfig",
     config = function()
@@ -79,6 +82,14 @@ return {
         },
       })
       vim.lsp.enable("vls")
+
+      -- Flutter / Dart
+      require("flutter-tools").setup({
+        lsp = {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        },
+      })
 
     end,
   },
