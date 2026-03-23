@@ -9,10 +9,14 @@ return {
           "python",
           "javascript",
           "typescript",
-          "dart"
+          "tsx",        -- 🔥 React TSX
+          "dart",
         },
         highlight = { enable = true },
-        indent = { enable = true },
+        indent = {
+          enable = true,
+          disable = { "python" }, -- optional
+        },
       })
     end,
   },

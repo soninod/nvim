@@ -10,67 +10,80 @@ return {
       })
     end,
   },
-
   -- LuaSnip snippets collection (optional)
   { "rafamadriz/friendly-snippets" },
-
   -- Flutter & Dart
-  {
-    "akinsho/flutter-tools.nvim",
+  { "akinsho/flutter-tools.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
       "nvim-lua/plenary.nvim",
     },
   },
-
   -- LSP configuration (v0.11+ аргаар)
   { "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       local on_attach = function(client, bufnr)
-
         local opts = { buffer = bufnr, silent = true }
-
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "K",  vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-
       end
+
+      -- HTML / CSS
+      vim.lsp.config("HTML", {})
+      vim.lsp.config("CSS", {})
+
 
       -- Pyright
       vim.lsp.config("pyright", {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable("pyright")
 
       -- TypeScript
       vim.lsp.config("ts_ls", {
         on_attach = on_attach,
         capabilities = capabilities,
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
       })
+      vim.lsp.enable("ts_ls")
 
       -- Lua
       vim.lsp.config("lua_ls", {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable("lua_ls")
 
-      -- Flutter / Dart
-      require("flutter-tools").setup({
-        lsp = {
-          on_attach = on_attach,
-          capabilities = capabilities,
+      -- Vue 2
+      vim.lsp.config("vls", {
+        cmd = { "vls" },
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "vue" },
+        init_options = {
+          config = {
+            vetur = {
+              validation = {
+                template = true,
+                script = true,
+                style = true,
+              },
+            },
+          },
         },
       })
+      vim.lsp.enable("vls")
+
     end,
   },
-
   -- Autocomplete + Snippets
-  {
-    "hrsh7th/nvim-cmp",
+  { "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
@@ -95,6 +108,4 @@ return {
       })
     end,
   },
-
 }
-

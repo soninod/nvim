@@ -24,57 +24,5 @@ return {
   {
     "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons" }
   },
-  {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- optional for file icons
-    config = function()
-
-      vim.cmd [[
-        highlight NvimTreeFolderArrowClosed guifg=#719cd6
-        highlight NvimTreeFolderArrowOpen guifg=#719cd6
-      ]]
-
-      require("nvim-tree").setup({
-        sort_by = "case_sensitive",
-        view = {
-          width = 35,
-          side = "left",
-          preserve_window_proportions = true,
-          signcolumn = "yes",
-        },
-        renderer = {
-        --   group_empty = true,
-        --   highlight_git = true,
-        --   highlight_opened_files = "all",
-          indent_markers = {
-            enable = true,
-          },
-          icons = {
-            glyphs = {
-              folder = {
-                arrow_closed = "⮞", -- e.g., thin arrow
-                arrow_open = "⮟",
-              },
-            },
-            show = {
-              file = true,
-              folder = true,
-              folder_arrow = true,
-              git = true,
-            },
-          },
-        },
-        -- filters = {
-        --   dotfiles = false,
-        -- },
-        -- git = {
-        --   enable = true,
-        --   ignore = false,
-        --   timeout = 500,
-        -- },
-      })
-
-    end
-  }
 }
 
