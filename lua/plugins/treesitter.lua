@@ -11,6 +11,9 @@ return {
           "typescript",
           "tsx",        -- 🔥 React TSX
           "dart",
+          "json",
+          "yaml",
+          "html",
         },
         highlight = { enable = true },
         indent = {

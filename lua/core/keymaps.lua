@@ -8,3 +8,11 @@ keymap("n", "<Leader>fg", ":Telescope live_grep<CR>", opts)
 keymap("n", "<Leader>fw", ":Telescope grep_string<CR>", opts)
 keymap("n", "<Leader>e", ":lua vim.diagnostic.open_float()<CR>", opts)
 -- keymap("n", "<leader>i", require("lspimport").import(), opts)
+
+-- Toggle fold with <CR> (only in normal file buffers, so quickfix/help <CR> still works)
+vim.keymap.set("n", "<CR>", function()
+  if vim.bo.buftype == "" then
+    return "za"
+  end
+  return "<CR>"
+end, { expr = true, silent = true, desc = "Toggle fold" })
