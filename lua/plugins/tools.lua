@@ -6,7 +6,7 @@ return {
     config = function()
       require("telescope").setup({
         defaults = {
-          file_ignore_patterns = { "node_modules", "%.git/", "dist" },
+          file_ignore_patterns = { "node_modules", "%.git/", "dist", "%.pyc$", "__pycache__/" },
         }
       })
     end,
